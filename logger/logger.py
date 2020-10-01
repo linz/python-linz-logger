@@ -61,4 +61,7 @@ structlog.configure(
 
 
 def get_log():
+    """
+    get a instance of the JSON logger
+    """
     return structlog.get_logger()
