@@ -10,4 +10,3 @@ version=$(grep pyproject.toml -e '(?<=^version = ")(.*)(?=")' -Po)
 git checkout -b "release/v${version}"
 git add pyproject.toml
 git commit -m "release: ${version}"
-git tag "v${version}"
