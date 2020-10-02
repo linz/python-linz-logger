@@ -29,7 +29,7 @@ jobs:
           poetry run pylint linz_logger/**
       - name: Import Sorting
         run: |
-          poetry run isort -rc linz_logger/** --check --diff
+          poetry run isort linz_logger/** --check --diff
       - name: Test
         run: |
           poetry run pytest
