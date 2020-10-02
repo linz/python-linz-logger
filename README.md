@@ -26,13 +26,13 @@ LINZ has a standard Logging format based loosly on [pinojs](https://github.com/p
 ## Usage 
 
 ```
-pip install linz.logger
+pip install linz-logger
 ```
 
 
 ```python
-from linz.logger import get_log
+from linz_logger import get_log
 
-
-get_log().info("Hello World")
+get_log().error('Hello World', key="value")
+# {"key": "value", "level": 50, "time": 1601555605017, "v": 1, "pid": 311800, "msg": "Hello World"}
 ```
