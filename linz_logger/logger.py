@@ -31,7 +31,7 @@ structlog.stdlib.BoundLogger.trace = trace
 
 logging.basicConfig(
     level=int(os.environ.get("LOGLEVEL", TRACE)),
-    format=os.environ.get("LOGFORMAT", "%(levelname)-8s= %(asctime)-15s = %(message)s"),
+    format=os.environ.get("LOGFORMAT", "%(message)s"),
 )
 
 structlog.configure(
