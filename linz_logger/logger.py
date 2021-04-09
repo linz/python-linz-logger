@@ -14,45 +14,10 @@ NAME_TO_LEVEL = {
     "info": 30,
     "debug": 20,
     "notset": 10,
-    "trace": 5,
+    "trace": 10,
 }
 
-structlog.stdlib.TRACE = TRACE = 5
-structlog.stdlib._NAME_TO_LEVEL["trace"] = TRACE
-structlog.stdlib._LEVEL_TO_NAME[TRACE] = "trace"
-
-
-def trace(self, msg, *args, **kw):
-    return self.log(TRACE, msg, *args, **kw)
-
-
-structlog.stdlib._FixedFindCallerLogger.trace = trace
-structlog.stdlib.BoundLogger.trace = trace
-
-logging.basicConfig(
-    level=int(os.environ.get("LOGLEVEL", TRACE)),
-    format=os.environ.get("LOGFORMAT", "%(message)s"),
-)
-
-structlog.configure(
-    processors=[
-        structlog.stdlib.filter_by_level,
-        structlog.stdlib.add_logger_name,
-        structlog.stdlib.add_log_level,
-        structlog.stdlib.PositionalArgumentsFormatter(),
-        structlog.processors.StackInfoRenderer(),
-        structlog.processors.format_exc_info,
-        structlog.processors.UnicodeDecoder(),
-        structlog.stdlib.render_to_log_kwargs,
-    ],
-    context_class=dict,
-    logger_factory=structlog.stdlib.LoggerFactory(),
-    wrapper_class=structlog.stdlib.BoundLogger,
-    cache_logger_on_first_use=True,
-)
-
-logging.addLevelName(TRACE, "TRACE")
-
+structlog.PrintLogger.trace = structlog.PrintLogger.msg
 
 pid = os.getpid()
 
@@ -72,7 +37,7 @@ def add_default_keys(current_logger, method_name: str, event_dict: dict):
         "v": 1
     }
     """
-    event_dict["level"] = NAME_TO_LEVEL[method_name]
+    event_dict["level"] = NAME_TO_LEVEL.get(method_name, 10)
 
     # Time needs to be in ms
     event_dict["time"] = int(datetime.utcnow().timestamp() * 1000)
@@ -96,7 +61,6 @@ structlog.configure(
     ],
     context_class=structlog.threadlocal.wrap_dict(dict),
 )
-
 
 def get_log():
     """
