@@ -1,4 +1,3 @@
-import logging
 import os
 from datetime import datetime
 
@@ -61,6 +60,7 @@ structlog.configure(
     ],
     context_class=structlog.threadlocal.wrap_dict(dict),
 )
+
 
 def get_log():
     """
