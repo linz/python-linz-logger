@@ -13,8 +13,10 @@ NAME_TO_LEVEL = {
     "info": 30,
     "debug": 20,
     "notset": 10,
+    "trace": 10,
 }
 
+structlog.PrintLogger.trace = structlog.PrintLogger.msg
 
 pid = os.getpid()
 
@@ -34,7 +36,7 @@ def add_default_keys(current_logger, method_name: str, event_dict: dict):
         "v": 1
     }
     """
-    event_dict["level"] = NAME_TO_LEVEL[method_name]
+    event_dict["level"] = NAME_TO_LEVEL.get(method_name, 10)
 
     # Time needs to be in ms
     event_dict["time"] = int(datetime.utcnow().timestamp() * 1000)
