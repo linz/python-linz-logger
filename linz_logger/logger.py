@@ -73,4 +73,7 @@ def get_log():
 
 
 def trace(self, event, **kw):
+    """
+    add trace level
+    """
     return self._proxy_to_logger("trace", event, **kw)
