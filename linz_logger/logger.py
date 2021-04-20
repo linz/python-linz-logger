@@ -1,26 +1,32 @@
 import os
 from datetime import datetime
+from enum import Enum
 from functools import partial
 
 import structlog
+from structlog.exceptions import DropEvent
 
-# Convert to pinojs standard level numbers
-NAME_TO_LEVEL = {
-    "critical": 60,
-    "exception": 50,
-    "error": 50,
-    "warn": 40,
-    "warning": 40,
-    "info": 30,
-    "debug": 20,
-    "notset": 10,
-    "trace": 10,
-}
+
+class LogLevel(Enum):
+    """
+    Convert to pinojs standard level numbers
+    """
+
+    critical = 60
+    exception = 50
+    error = 50
+    warn = 40
+    warning = 40
+    info = 30
+    debug = 20
+    notset = 10
+    trace = 10
+
+
+current_level = 10
 
 structlog.PrintLogger.trace = structlog.PrintLogger.msg
-
 pid = os.getpid()
-
 # This is a standard format for the function so it needs all three arguments
 # Even thought we do not use them
 # pylint: disable=unused-argument
@@ -37,18 +43,26 @@ def add_default_keys(current_logger, method_name: str, event_dict: dict):
         "v": 1
     }
     """
-    event_dict["level"] = NAME_TO_LEVEL.get(method_name, 10)
-
+    event_dict["level"] = LogLevel[method_name].value if LogLevel[method_name] else 10
     # Time needs to be in ms
     event_dict["time"] = int(datetime.utcnow().timestamp() * 1000)
-
     # Standard keys that need to be added
     event_dict["v"] = 1
     event_dict["pid"] = pid
-
     # Remap event -> msg
     event_dict["msg"] = event_dict["event"]
     del event_dict["event"]
+    return event_dict
+
+
+def set_level(level):
+    global current_level
+    current_level = level.value
+
+
+def level_filter(current_logger, method_name: str, event_dict: dict):
+    if event_dict.get("level", 0) < current_level:
+        raise DropEvent
     return event_dict
 
 
@@ -57,6 +71,7 @@ structlog.configure(
         add_default_keys,
         structlog.processors.StackInfoRenderer(),
         structlog.processors.format_exc_info,
+        level_filter,
         structlog.processors.JSONRenderer(),
     ],
     context_class=structlog.threadlocal.wrap_dict(dict),

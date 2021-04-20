@@ -1,1 +1,1 @@
-from .logger import get_log
+from .logger import LogLevel, get_log, set_level

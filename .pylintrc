@@ -4,7 +4,8 @@ disable =
         invalid-name,
         missing-module-docstring,
         missing-function-docstring,
-        protected-access
+        protected-access,
+        global-statement
         
 [FORMAT]
 max-line-length=127
