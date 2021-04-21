@@ -35,7 +35,7 @@ def set_level(level: LogLevel):
     current_level = level
 
 
-def level_filter(current_logger, method_name: str, event_dict: dict):
+def level_filter(_, __, event_dict: dict):
     """
     Silently drop logs lower than the set level.
     """
