@@ -20,3 +20,11 @@ def test_trace(capsys):
     log = json.loads(stdout)
     assert log["level"] == 10
     assert log["msg"] == "abc"
+
+
+def test_trace_at_debug_level(capsys):
+    """Test trace level outputs nothing when log set to debug"""
+    set_level(LogLevel.debug)
+    get_log().trace("abc")
+    stdout, _ = capsys.readouterr()
+    assert stdout == ""
