@@ -4,7 +4,7 @@ Tests for the hello() function.
 
 import json
 
-from .logger import get_log
+from .logger import LogLevel, get_log, set_level
 
 
 def test_hello_without_name():
@@ -14,6 +14,7 @@ def test_hello_without_name():
 
 def test_trace(capsys):
     """Test trace level"""
+    set_level(LogLevel.trace)
     get_log().trace("abc")
     stdout, _ = capsys.readouterr()
     log = json.loads(stdout)
