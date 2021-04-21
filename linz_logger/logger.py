@@ -69,9 +69,9 @@ def level_filter(current_logger, method_name: str, event_dict: dict):
 structlog.configure(
     processors=[
         add_default_keys,
+        level_filter,
         structlog.processors.StackInfoRenderer(),
         structlog.processors.format_exc_info,
-        level_filter,
         structlog.processors.JSONRenderer(),
     ],
     context_class=structlog.threadlocal.wrap_dict(dict),
