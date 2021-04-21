@@ -23,7 +23,26 @@ class LogLevel(Enum):
     trace = 10
 
 
-current_level = 10
+current_level = LogLevel.debug
+
+
+def set_level(level: LogLevel):
+    """
+    Set the loggging level.
+    All logs less than the given value will not be displayed.
+    """
+    global current_level
+    current_level = level
+
+
+def level_filter(current_logger, method_name: str, event_dict: dict):
+    """
+    Silently drop logs lower than the set level.
+    """
+    if event_dict.get("level", 0) < current_level.value:
+        raise DropEvent
+    return event_dict
+
 
 structlog.PrintLogger.trace = structlog.PrintLogger.msg
 pid = os.getpid()
@@ -52,17 +71,6 @@ def add_default_keys(current_logger, method_name: str, event_dict: dict):
     # Remap event -> msg
     event_dict["msg"] = event_dict["event"]
     del event_dict["event"]
-    return event_dict
-
-
-def set_level(level):
-    global current_level
-    current_level = level.value
-
-
-def level_filter(current_logger, method_name: str, event_dict: dict):
-    if event_dict.get("level", 0) < current_level:
-        raise DropEvent
     return event_dict
 
 
