@@ -26,7 +26,7 @@ LINZ has a standard logging format based loosely on the [pinojs](https://github.
 ## Usage 
 
 ```
-pip install linz-logger
+pip install --upgrade linz-logger
 ```
 
 
