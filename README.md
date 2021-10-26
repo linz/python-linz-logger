@@ -9,7 +9,7 @@
 
 ## Why?
 
-LINZ has a standard Logging format based loosly on [pinojs](https://github.com/pinojs/pino) logging format 
+LINZ has a standard logging format based loosely on the [pinojs](https://github.com/pinojs/pino) logging format:
 
 ```json
 {
