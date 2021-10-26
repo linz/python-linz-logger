@@ -1,7 +1,7 @@
 __pycache__
-.pytest_cache
+/.pytest_cache/
 *.pyc
-.vscode
+/.vscode/
 Thumbs.db
-dist
+/dist/
 /.idea/
