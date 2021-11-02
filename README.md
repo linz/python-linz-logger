@@ -9,7 +9,7 @@
 
 ## Why?
 
-LINZ has a standard Logging format based loosly on [pinojs](https://github.com/pinojs/pino) logging format 
+LINZ has a standard logging format based loosely on the [pinojs](https://github.com/pinojs/pino) logging format:
 
 ```json
 {
@@ -26,13 +26,16 @@ LINZ has a standard Logging format based loosly on [pinojs](https://github.com/p
 ## Usage 
 
 ```
-pip install linz-logger
+pip install --upgrade linz-logger
 ```
 
 
 ```python
-from linz_logger import get_log
+from os import environ
 
+from linz_logger import get_log, set_level, LogLevel
+
+set_level(LogLevel[environ.get("LOGLEVEL", "WARNING").lower()].value)
 get_log().error('Hello World', key="value")
 # {"key": "value", "level": 50, "time": 1601555605017, "v": 1, "pid": 311800, "msg": "Hello World"}
 ```
