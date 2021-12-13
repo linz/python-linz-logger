@@ -39,5 +39,5 @@ def test_timestamp(capsys):
     get_log().trace("abc")
     stdout, _ = capsys.readouterr()
     log = json.loads(stdout)
-    
+
     assert log["time"] - systime < 1000
