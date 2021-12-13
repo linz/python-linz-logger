@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+import time
 from enum import Enum
 from functools import partial
 
@@ -64,7 +64,7 @@ def add_default_keys(current_logger, method_name: str, event_dict: dict):
     """
     event_dict["level"] = LogLevel[method_name].value if LogLevel[method_name] else 10
     # Time needs to be in ms
-    event_dict["time"] = int(datetime.utcnow().timestamp() * 1000)
+    event_dict["time"] = int(time.time() * 1000)
     # Standard keys that need to be added
     event_dict["v"] = 1
     event_dict["pid"] = pid
