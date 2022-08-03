@@ -2,7 +2,7 @@
 name = "linz_logger"
 version = "0.6.0"
 description = "LINZ standard Logging format"
-authors = ["Blayne <bchard@linz.govt.nz>", "Megan <mdavidson@linz.govt.nz>", "Victor <vengmark@linz.govt.nz">, "Alice <afage@linz.govt.nz>", "Paul <pfouquet@linz.govt.nz>"]
+authors = ["Blayne <bchard@linz.govt.nz>", "Megan <mdavidson@linz.govt.nz>", "Victor <vengmark@linz.govt.nz>", "Alice <afage@linz.govt.nz>", "Paul <pfouquet@linz.govt.nz>"]
 license = "MIT"
 
 readme = "README.md"
