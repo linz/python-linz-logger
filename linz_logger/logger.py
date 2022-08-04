@@ -36,6 +36,7 @@ def set_level(level: LogLevel):
     global current_level
     current_level = level
 
+
 def set_contextvars(key_value: dict):
     """Set the context variables.
 
@@ -44,6 +45,7 @@ def set_contextvars(key_value: dict):
     """
     bind_contextvars(**key_value)
 
+
 def remove_contextvars(keys):
     """Remove the context variables.
 
@@ -51,6 +53,7 @@ def remove_contextvars(keys):
         keys (list): A list of keys.
     """
     unbind_contextvars(*keys)
+
 
 def level_filter(_, __, event_dict: dict):
     """
