@@ -4,7 +4,7 @@ from enum import Enum
 from functools import partial
 
 import structlog
-from structlog.contextvars import bind_contextvars, clear_contextvars, merge_contextvars
+from structlog.contextvars import bind_contextvars, clear_contextvars, merge_contextvars, unbind_contextvars
 from structlog.exceptions import DropEvent
 
 
@@ -37,13 +37,20 @@ def set_level(level: LogLevel):
     current_level = level
 
 def set_contextvars(key_value: dict):
-    """_summary_
+    """Set the context variables.
 
     Args:
-        key_value (dict): _description_
+        key_value (dict): A dictionnary of key-value pairs.
     """
     bind_contextvars(**key_value)
 
+def remove_contextvars(keys):
+    """Remove the context variables.
+
+    Args:
+        keys (list): A list of keys.
+    """
+    unbind_contextvars(*keys)
 
 def level_filter(_, __, event_dict: dict):
     """

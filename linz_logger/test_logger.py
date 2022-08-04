@@ -1,11 +1,9 @@
-"""
-Tests for the hello() function.
-"""
-
 import json
 import os
 
-from .logger import LogLevel, get_log, set_contextvars, set_level
+import pytest
+
+from .logger import LogLevel, get_log, remove_contextvars, set_contextvars, set_level
 
 
 def test_hello_without_name():
@@ -42,10 +40,11 @@ def test_timestamp(capsys):
 
     assert log["time"] - systime < 1000
 
+@pytest.mark.dependency()
 def test_set_contextvars(capsys):
-    """Test """
-    set_contextvars({"hostname": "toto", "ip": "192.168.0.2"})
+    set_contextvars({"hostname": "localhost", "ip": "192.168.0.2"})
     set_contextvars({"country": "NZ"})
+
     get_log().trace("abc")
     stdout, _ = capsys.readouterr()
     log = json.loads(stdout)
@@ -53,3 +52,14 @@ def test_set_contextvars(capsys):
     assert log["hostname"] == "localhost"
     assert log["ip"] == "192.168.0.2"
     assert log["country"] == "NZ"
+
+@pytest.mark.dependency(depends=['test_set_contextvars'])
+def test_remove_contextvars(capsys):
+    remove_contextvars(["hostname", "ip"])
+
+    get_log().trace("def")
+    stdout, _ = capsys.readouterr()
+    log = json.loads(stdout)
+
+    assert not "hostname" in log
+    assert not "ip" in log
