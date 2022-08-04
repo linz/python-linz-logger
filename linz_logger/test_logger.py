@@ -5,7 +5,7 @@ Tests for the hello() function.
 import json
 import os
 
-from .logger import LogLevel, get_log, set_level
+from .logger import LogLevel, get_log, set_contextvars, set_level
 
 
 def test_hello_without_name():
@@ -41,3 +41,15 @@ def test_timestamp(capsys):
     log = json.loads(stdout)
 
     assert log["time"] - systime < 1000
+
+def test_set_contextvars(capsys):
+    """Test """
+    set_contextvars({"hostname": "toto", "ip": "192.168.0.2"})
+    set_contextvars({"country": "NZ"})
+    get_log().trace("abc")
+    stdout, _ = capsys.readouterr()
+    log = json.loads(stdout)
+
+    assert log["hostname"] == "localhost"
+    assert log["ip"] == "192.168.0.2"
+    assert log["country"] == "NZ"
