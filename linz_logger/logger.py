@@ -69,6 +69,7 @@ def level_filter(_, __, event_dict: dict):
         raise DropEvent
     return event_dict
 
+
 # This is a standard format for the function so it needs all three arguments
 # Even thought we do not use them
 # pylint: disable=unused-argument
