@@ -41,27 +41,20 @@ def test_timestamp(capsys):
     assert log["time"] - systime < 1000
 
 
-@pytest.mark.dependency()
-def test_set_contextvars(capsys):
-    set_contextvars({"hostname": "localhost", "ip": "192.168.0.2"})
-    set_contextvars({"country": "NZ"})
+def test_contextvars(capsys):
+    set_contextvars({"ip": "192.168.0.2", "country": "NZ"})
 
     get_log().trace("abc")
     stdout, _ = capsys.readouterr()
     log = json.loads(stdout)
 
-    assert log["hostname"] == "localhost"
     assert log["ip"] == "192.168.0.2"
     assert log["country"] == "NZ"
 
-
-@pytest.mark.dependency(depends=["test_set_contextvars"])
-def test_remove_contextvars(capsys):
-    remove_contextvars(["hostname", "ip"])
+    remove_contextvars(["country"])
 
     get_log().trace("def")
     stdout, _ = capsys.readouterr()
     log = json.loads(stdout)
 
-    assert not "hostname" in log
-    assert not "ip" in log
+    assert not "country" in log
