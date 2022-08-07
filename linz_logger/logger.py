@@ -30,7 +30,7 @@ current_level = LogLevel.debug
 structlog.PrintLogger.trace = structlog.PrintLogger.msg
 pid = os.getpid()
 hostname = node()
-id = str(ULID())
+ulid = str(ULID())
 clear_contextvars()
 
 
@@ -93,7 +93,7 @@ def add_default_keys(current_logger, method_name: str, event_dict: dict):
     event_dict["v"] = 1
     event_dict["pid"] = pid
     event_dict["hostname"] = hostname
-    event_dict["id"] = id
+    event_dict["id"] = ulid
     # Remap event -> msg
     event_dict["msg"] = event_dict["event"]
     del event_dict["event"]
