@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Setup Python 3.8
@@ -33,11 +33,3 @@ jobs:
       - name: Test
         run: |
           poetry run pytest
-      - name: Publish
-        if: github.ref == 'refs/heads/master' && startsWith(github.event.head_commit.message, 'release:')
-        run: |
-          poetry config pypi-token.pypi ${PYPI_TOKEN}
-          poetry build
-          poetry publish
-        env:
-          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}

@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - master
+
+name: release-please
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: python
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-release:
+    needs: release-please
+    runs-on: ubuntu-latest
+    if: ${{ needs.release-please.outputs.release_created }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v4.2.0
+        with:
+          python-version: 3.8
+
+      - name: Install
+        run: |
+          pip install poetry
+          poetry install
+
+      - name: Publish
+        run: |
+          poetry config pypi-token.pypi ${PYPI_TOKEN}
+          poetry build
+          poetry publish
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
