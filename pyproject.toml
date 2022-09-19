@@ -19,7 +19,7 @@ python-ulid = "^1.1.0"
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
 isort = "^5.10.1"
-pylint = "^2.15.0"
+pylint = "^2.15.3"
 pytest = "^7.1.2"
 pytest-dependency = "^0.5.1"
 
