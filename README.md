@@ -9,17 +9,31 @@
 
 ## Why?
 
-LINZ has a standard logging format based loosely on the [pinojs](https://github.com/pinojs/pino) logging format:
+[OpenTelemetry Log Data Model](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md)
 
 ```json
 {
-  "level": 30,
-  "time": 1571696532994,
-  "pid": 10671,
-  "hostname": "Ubuntu1",
-  "id": "01DQR6KQG0K60TP4T1C4VC5P74",
-  "msg": "SomeMessage",
-  "v": 1
+  "timestamp": 1586960586000,
+  "attributes": {
+    "http.status_code": 500,
+    "http.url": "http://example.com",
+    "my.custom.application.tag": "hello"
+  },
+  "resource": {
+    "service.name": "donut_shop",
+    "service.version": "semver:2.0.0",
+    "k8s.pod.name": "1138528c-c36e-11e9-a1a7-42010a800198"
+  },
+  "trace_id": "f4dbb3edd765f620",
+  "span_id": "43222c2d51a7abe3",
+  "severity": "INFO",
+  "body": {
+    "i": "am",
+    "an": "event",
+    "of": {
+      "some": "complexity"
+    }
+  }
 }
 ```
 

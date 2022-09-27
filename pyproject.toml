@@ -15,6 +15,7 @@ keywords = ["LINZ", "logging"]
 python = "^3.8"
 structlog = "^22.1.0"
 python-ulid = "^1.1.0"
+dataclasses-json = "^0.5.7"
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
@@ -22,6 +23,8 @@ isort = "^5.10.1"
 pylint = "^2.15.0"
 pytest = "^7.1.2"
 pytest-dependency = "^0.5.1"
+
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -1,7 +1,7 @@
 import json
 import os
 
-from .logger import LogLevel, get_log, remove_contextvars, set_contextvars, set_level
+from .logger import Severity, get_log, remove_contextvars, set_contextvars, set_severity
 
 
 def test_hello_without_name():
@@ -11,17 +11,17 @@ def test_hello_without_name():
 
 def test_trace(capsys):
     """Test trace level"""
-    set_level(LogLevel.trace)
+    set_severity(Severity.TRACE)
     get_log().trace("abc")
     stdout, _ = capsys.readouterr()
     log = json.loads(stdout)
-    assert log["level"] == 10
+    assert log["SeverityText"] == Severity.TRACE.name
     assert log["msg"] == "abc"
 
 
 def test_trace_at_debug_level(capsys):
     """Test trace level outputs nothing when log set to debug"""
-    set_level(LogLevel.debug)
+    set_severity(Severity.DEBUG)
     get_log().trace("abc")
     stdout, _ = capsys.readouterr()
     assert stdout == ""
@@ -29,30 +29,11 @@ def test_trace_at_debug_level(capsys):
 
 def test_timestamp(capsys):
     """Test timestamp is actually a timestamp"""
-    set_level(LogLevel.trace)
+    set_severity(Severity.TRACE)
 
     systime = int(os.popen("date +%s").read()) * 1000
     get_log().trace("abc")
     stdout, _ = capsys.readouterr()
     log = json.loads(stdout)
 
-    assert log["time"] - systime < 1000
-
-
-def test_contextvars(capsys):
-    set_contextvars({"ip": "192.168.0.2", "country": "NZ"})
-
-    get_log().trace("abc")
-    stdout, _ = capsys.readouterr()
-    log = json.loads(stdout)
-
-    assert log["ip"] == "192.168.0.2"
-    assert log["country"] == "NZ"
-
-    remove_contextvars(["country"])
-
-    get_log().trace("def")
-    stdout, _ = capsys.readouterr()
-    log = json.loads(stdout)
-
-    assert not "country" in log
+    assert log["Timestamp"] - systime < 1000
