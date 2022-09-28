@@ -6,12 +6,11 @@ from functools import partial
 from platform import node
 
 import structlog
-from structlog.contextvars import bind_contextvars, clear_contextvars, merge_contextvars, unbind_contextvars
 from structlog.exceptions import DropEvent
 from ulid import ULID
 
 from linz_logger.ot_attributes import OpenTelemetryAttributes
-from linz_logger.ot_resources import OpenTelemetryResourceHost
+from linz_logger.ot_resources import OpenTelemetryResource
 
 
 class Severity(Enum):
@@ -31,10 +30,19 @@ structlog.PrintLogger.trace = structlog.PrintLogger.msg
 pid = os.getpid()
 hostname = node()
 ulid = str(ULID())
-clear_contextvars()
 current_severity: Severity = Severity.DEBUG
-resources: OpenTelemetryResourceHost = OpenTelemetryResourceHost(host_name=hostname)
+resources: OpenTelemetryResource = OpenTelemetryResource(host_name=hostname)
 attributes: OpenTelemetryAttributes = OpenTelemetryAttributes()
+
+
+def remove_none_empty_values(_dict: dict):
+    new_dict = _dict.copy()
+    for key, value in list(new_dict.items()):
+        if value is None or value == "":
+            del new_dict[key]
+        elif isinstance(value, dict):
+            remove_none_empty_values(value)
+    return new_dict
 
 
 def set_severity(severity: Severity):
@@ -46,40 +54,27 @@ def set_severity(severity: Severity):
     current_severity = severity
 
 
-def set_contextvars(key_value: dict):
-    """Set the context variables.
-
-    Args:
-        key_value (dict): A dictionnary of key-value pairs.
-    """
-    bind_contextvars(**key_value)
-
-
-def remove_contextvars(keys):
-    """Remove the context variables.
-
-    Args:
-        keys (list): A list of keys.
-    """
-    unbind_contextvars(*keys)
-
-
-def set_resources(ctx: OpenTelemetryResourceHost) -> None:
+def set_resources(ctx: OpenTelemetryResource) -> None:
     global resources
     resources = replace(resources, **asdict(ctx))
+
+
+def set_attributes(ctx: OpenTelemetryAttributes) -> None:
+    global attributes
+    attributes = replace(attributes, **asdict(ctx))
 
 
 def severity_filter(_, __, event_dict: dict):
     """
     Silently drop logs lower than the set severity.
     """
-    if event_dict.get("Severity", 0) < current_severity.value:
+    if event_dict.get("SeverityNumber", 0) < current_severity.value:
         raise DropEvent
     return event_dict
 
 
 # This is a standard format for the function so it needs all three arguments
-# Even thought we do not use them
+# Even though we do not use them
 # pylint: disable=unused-argument
 def add_default_keys(current_logger, method_name: str, event_dict: dict):
     """
@@ -104,12 +99,14 @@ def add_default_keys(current_logger, method_name: str, event_dict: dict):
       "Body": "20200415T072306-0700 INFO I like donuts"
     }
     """
-
-    event_dict["SeverityText"] = Severity[method_name].name if Severity[method_name] else Severity.TRACE.name
-    event_dict["SeverityNumber"] = Severity[method_name] if Severity[method_name] else Severity.TRACE
+    severity_name = method_name.upper()
+    severity_name = severity_name.replace("WARNING", "WARN")
+    event_dict["SeverityText"] = Severity[severity_name].name if Severity[severity_name] else Severity.TRACE.name
+    event_dict["SeverityNumber"] = Severity[severity_name].value if Severity[severity_name] else Severity.TRACE.value
     event_dict["Timestamp"] = time.time_ns()
-    event_dict["Attributes"] = asdict(attributes)
-    event_dict["Resources"] = asdict(resources)
+    # TODO: do we want to delete empty values - I've done that to manage default values in both OpenTelemetryAttributes and OpenTelemetryResource
+    event_dict["Attributes"] = remove_none_empty_values(attributes.to_dict())
+    event_dict["Resources"] = remove_none_empty_values(resources.to_dict())
     event_dict["Attributes"]["msg"] = event_dict["event"]
     del event_dict["event"]
     return event_dict
@@ -117,12 +114,11 @@ def add_default_keys(current_logger, method_name: str, event_dict: dict):
 
 structlog.configure(
     processors=[
-        merge_contextvars,
         add_default_keys,
         severity_filter,
         structlog.processors.StackInfoRenderer(),
         structlog.processors.format_exc_info,
-        structlog.processors.JSONRenderer(),
+        structlog.processors.JSONRenderer(allow_nan=False, sort_keys=True),
     ]
 )
 
@@ -136,8 +132,14 @@ def get_log():
     return log
 
 
-def trace(self, event, **kw):
+def trace(self, event, name, **kw):
+    """_summary_
+
+    Args:
+        event (_type_): _description_
+        name (_type_): Short event identifier that does not contain varying parts.
+
+    Returns:
+        _type_: _description_
     """
-    add trace level
-    """
-    return self._proxy_to_logger("trace", event, **kw)
+    return self._proxy_to_logger("trace", event, Name=name, **kw)
