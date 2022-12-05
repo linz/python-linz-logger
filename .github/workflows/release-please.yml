@@ -13,7 +13,6 @@ jobs:
       - uses: google-github-actions/release-please-action@v3.6.1
         id: release
         with:
-          release-type: python
           token: ${{ secrets.GITHUB_TOKEN }}
 
   publish-release:
