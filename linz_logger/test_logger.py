@@ -36,7 +36,7 @@ def test_timestamp(capsys):
     stdout, _ = capsys.readouterr()
     log = json.loads(stdout)
 
-    assert log["time"] - systime < 1000
+    assert -10000 < log["time"] - systime < 10000
 
 
 def test_contextvars(capsys):
