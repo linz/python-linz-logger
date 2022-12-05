@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -o errexit -o noclobber -o nounset -o pipefail
+shopt -s failglob inherit_errexit
+
 git checkout master
 git pull --rebase
 
