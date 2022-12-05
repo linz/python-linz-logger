@@ -23,13 +23,13 @@ jobs:
           poetry install
       - name: Format
         run: |
-          poetry run black linz_logger/** --check --diff
+          poetry run black --check --diff linz_logger/*
       - name: Lint
         run: |
-          poetry run pylint linz_logger/**
+          poetry run pylint linz_logger/*
       - name: Import Sorting
         run: |
-          poetry run isort linz_logger/** --check --diff
+          poetry run isort --check --diff linz_logger/*
       - name: Test
         run: |
           poetry run pytest
