@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/linz/python-linz-logger/compare/v0.11.0...v0.12.0) (2023-12-11)
+
+
+### Features
+
+* Pin actions to hashes ([#239](https://github.com/linz/python-linz-logger/issues/239)) ([baa078d](https://github.com/linz/python-linz-logger/commit/baa078de062773caa35deb4273331a99aa13bd9c))
+
 ## 0.11.0 (2022-12-05)
 
 
