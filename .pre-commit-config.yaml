@@ -11,12 +11,27 @@ repos:
         stages: [commit]
         types: [python]
 
+      - id: deadnix
+        name: deadnix
+        entry: deadnix
+        args: [--edit, --fail]
+        files: \.nix$
+        language: system
+        stages: [commit]
+
       - id: isort
         name: isort
         entry: isort
         language: system
         stages: [commit]
         types: [python]
+
+      - id: nixfmt
+        name: nixfmt
+        entry: nixfmt
+        files: \.nix$
+        language: system
+        stages: [commit]
 
       - id: pylint
         name: pylint
@@ -25,3 +40,12 @@ repos:
         stages: [commit]
         types: [python]
         require_serial: true
+
+      - id: statix
+        name: statix
+        entry: statix
+        args: [check]
+        files: \.nix$
+        pass_filenames: false
+        language: system
+        stages: [commit]
