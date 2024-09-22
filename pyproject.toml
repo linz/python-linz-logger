@@ -12,7 +12,7 @@ repository = "https://github.com/linz/python-linz-logger"
 keywords = ["LINZ", "logging"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "~3.12.3"
 structlog = "^23.2.0"
 python-ulid = "^1.1.0"
 
