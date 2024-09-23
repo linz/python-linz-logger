@@ -3,6 +3,7 @@ import time
 from enum import Enum
 from functools import partial
 from platform import node
+from typing import Any, MutableMapping
 
 import structlog
 from structlog.contextvars import bind_contextvars, clear_contextvars, merge_contextvars, unbind_contextvars
@@ -27,7 +28,7 @@ class LogLevel(Enum):
 
 
 current_level = LogLevel.debug
-structlog.PrintLogger.trace = structlog.PrintLogger.msg
+structlog.PrintLogger.trace = structlog.PrintLogger.msg  # type: ignore[attr-defined]
 pid = os.getpid()
 hostname = node()
 ulid = str(ULID())
@@ -61,7 +62,7 @@ def remove_contextvars(keys):
     unbind_contextvars(*keys)
 
 
-def level_filter(_, __, event_dict: dict):
+def level_filter(_, __, event_dict: MutableMapping[str, Any]):
     """
     Silently drop logs lower than the set level.
     """
@@ -73,7 +74,7 @@ def level_filter(_, __, event_dict: dict):
 # This is a standard format for the function so it needs all three arguments
 # Even thought we do not use them
 # pylint: disable=unused-argument
-def add_default_keys(current_logger, method_name: str, event_dict: dict):
+def add_default_keys(current_logger, method_name: str, event_dict: MutableMapping[str, Any]):
     """
     Configure structlog to output the same format as pinojs
     {
