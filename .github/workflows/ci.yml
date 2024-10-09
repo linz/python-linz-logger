@@ -20,15 +20,9 @@ jobs:
         run: |
           pip install poetry
           poetry install --no-root
-      - name: Format
+      - name: Lint & format
         run: |
-          poetry run black --check --diff linz_logger/*
-      - name: Lint
-        run: |
-          poetry run pylint linz_logger/*
-      - name: Import Sorting
-        run: |
-          poetry run isort --check --diff linz_logger/*
+          poetry run pre-commit run --all-files
       - name: Test
         run: |
           poetry run pytest
