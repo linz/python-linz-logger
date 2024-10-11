@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.1](https://github.com/linz/python-linz-logger/compare/v0.12.0...v0.12.1) (2024-10-11)
+
+
+### Bug Fixes
+
+* Don't attempt to install project inside virtualenv ([#306](https://github.com/linz/python-linz-logger/issues/306)) ([a0662b0](https://github.com/linz/python-linz-logger/commit/a0662b0ceaee5e11cce7f01c6455ccc81f8c245b))
+
 ## [0.12.0](https://github.com/linz/python-linz-logger/compare/v0.11.0...v0.12.0) (2024-04-16)
 
 
