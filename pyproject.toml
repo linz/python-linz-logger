@@ -13,7 +13,7 @@ keywords = ["LINZ", "logging"]
 
 [tool.poetry.dependencies]
 python = "~3.12.3"
-structlog = "^23.2.0"
+structlog = ">=23.2,<26.0"
 python-ulid = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
