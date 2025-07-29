@@ -383,14 +383,17 @@ setuptools = "*"
 
 [[package]]
 name = "python-ulid"
-version = "1.1.0"
-description = "Universally Unique Lexicographically Sortable Identifier"
+version = "3.0.0"
+description = "Universally unique lexicographically sortable identifier"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.9"
 files = [
-    {file = "python-ulid-1.1.0.tar.gz", hash = "sha256:5fb5e4a91db8ca93e8938a613360b3def299b60d41f847279a8c39c9b2e9c65e"},
-    {file = "python_ulid-1.1.0-py3-none-any.whl", hash = "sha256:88c952f6be133dbede19c907d72d26717d2691ec8421512b573144794d891e24"},
+    {file = "python_ulid-3.0.0-py3-none-any.whl", hash = "sha256:e4c4942ff50dbd79167ad01ac725ec58f924b4018025ce22c858bfcff99a5e31"},
+    {file = "python_ulid-3.0.0.tar.gz", hash = "sha256:e50296a47dc8209d28629a22fc81ca26c00982c78934bd7766377ba37ea49a9f"},
 ]
+
+[package.extras]
+pydantic = ["pydantic (>=2.0)"]
 
 [[package]]
 name = "pyyaml"
@@ -531,4 +534,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.3)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.12.3"
-content-hash = "4de2db4ebbe79ec78705f207f86f4b14621fcd5d2935202b53b668dfc0a1b283"
+content-hash = "b6eec9c1855a46c0c5307f65be5a1720e8931ba53aac459c488e39368166c19f"
