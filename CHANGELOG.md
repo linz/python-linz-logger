@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.13.0](https://github.com/linz/python-linz-logger/compare/v0.12.0...v0.13.0) (2025-07-29)
+
+
+### Features
+
+* Lint type annotations using mypy ([#311](https://github.com/linz/python-linz-logger/issues/311)) ([b50b535](https://github.com/linz/python-linz-logger/commit/b50b535e5596f7d59f922ecfeda64e6a4fcf1b54))
+
+
+### Bug Fixes
+
+* Don't attempt to install project inside virtualenv ([#306](https://github.com/linz/python-linz-logger/issues/306)) ([a0662b0](https://github.com/linz/python-linz-logger/commit/a0662b0ceaee5e11cce7f01c6455ccc81f8c245b))
+
 ## [0.12.0](https://github.com/linz/python-linz-logger/compare/v0.11.0...v0.12.0) (2024-04-16)
 
 
