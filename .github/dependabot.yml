@@ -4,12 +4,16 @@ updates:
     directory: "/"
     schedule:
       interval: daily
+    cooldown:
+      default-days: 15
     commit-message:
       prefix: "build(deps)"
   - package-ecosystem: pip
     directory: "/"
     schedule:
       interval: daily
+    cooldown:
+      default-days: 15
     open-pull-requests-limit: 10
     commit-message:
       prefix: "build(deps)"
