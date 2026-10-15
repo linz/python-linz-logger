@@ -8,14 +8,14 @@ repos:
         name: black
         entry: black
         language: system
-        stages: [commit]
+        stages: [pre-commit]
         types: [python]
 
       - id: isort
         name: isort
         entry: isort
         language: system
-        stages: [commit]
+        stages: [pre-commit]
         types: [python]
 
       - id: mypy
@@ -23,7 +23,7 @@ repos:
         entry: mypy
         args: [--no-incremental]
         language: system
-        stages: [commit]
+        stages: [pre-commit]
         types: [python]
         require_serial: true
 
@@ -31,6 +31,6 @@ repos:
         name: pylint
         entry: pylint
         language: system
-        stages: [commit]
+        stages: [pre-commit]
         types: [python]
         require_serial: true

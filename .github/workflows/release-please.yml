@@ -15,7 +15,6 @@ jobs:
       - uses: googleapis/release-please-action@a02a34c4d625f9be7cb89156071d8567266a2445 # v4.2.0
         id: release
         with:
-          release-type: python
           token: ${{ secrets.LINZ_GITHUB_AUTOMATION }}
 
   publish-release:
@@ -29,21 +28,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
           python-version: "3.12.3"
 
-      - name: Install Poetry
-        run: pip install poetry
-
-      - name: Install dependencies
-        run: poetry install --no-root
-
-      - name: Set PyPI token
-        run: poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-
       - name: Build
-        run: poetry build
+        run: uv build
 
       - name: Publish
-        run: poetry publish
+        run: uv publish
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
