@@ -19,7 +19,7 @@ jobs:
           python-version: "3.12.3"
       - name: Install
         run: |
-          uv sync --frozen
+          uv sync --locked
       - name: Lint & format
         run: |
           uv run pre-commit run --all-files
