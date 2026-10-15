@@ -1,20 +1,36 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
+    open-pull-requests-limit: 5
     schedule:
-      interval: daily
+      interval: weekly
+      day: monday
+      time: "07:30"
+      timezone: Pacific/Auckland
     cooldown:
       default-days: 15
     commit-message:
-      prefix: "build(deps)"
+      prefix: build(deps)
+    groups:
+      actions-minor-and-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+  # Python packages (pyproject.toml and uv.lock), including the uv_build build requirement.
   - package-ecosystem: uv
-    directory: "/"
+    directory: /
+    open-pull-requests-limit: 5
     schedule:
-      interval: daily
+      interval: weekly
+      day: monday
+      time: "07:30"
+      timezone: Pacific/Auckland
     cooldown:
       default-days: 15
-    open-pull-requests-limit: 10
     commit-message:
-      prefix: "build(deps)"
-      prefix-development: "build(deps-dev)"
+      prefix: build(deps)
+    groups:
+      uv-minor-and-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
