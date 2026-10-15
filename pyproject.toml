@@ -11,7 +11,7 @@ authors = [
     { name = "Daniel Silk", email = "dsilk@linz.govt.nz" },
     { name = "Alice Fage", email = "afage@linz.govt.nz" },
     { name = "Sheetal Poudel", email = "spoudel@linz.govt.nz" },
-    { name = "Stella McGann", email = "smgann@linz.govt.nz" },
+    { name = "Stella McGann", email = "smcgann@linz.govt.nz" },
     { name = "Tobias Schmidt", email = "tschmidt@linz.govt.nz" },
 ]
 license = "MIT"
