@@ -5,17 +5,17 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: '07:30'
+      time: "07:30"
       timezone: Pacific/Auckland
     cooldown:
       default-days: 15
     open-pull-requests-limit: 5
     commit-message:
-      prefix: 'build(deps)'
+      prefix: build(deps)
     groups:
       actions-minor-and-patch:
-        patterns: ['*']
-        update-types: ['minor', 'patch']
+        patterns: ["*"]
+        update-types: [minor, patch]
 
   # Python packages (pyproject.toml and uv.lock), including the uv_build build requirement.
   - package-ecosystem: uv
@@ -23,14 +23,14 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: '07:30'
+      time: "07:30"
       timezone: Pacific/Auckland
     cooldown:
       default-days: 15
     open-pull-requests-limit: 5
     commit-message:
-      prefix: 'build(deps)'
+      prefix: build(deps)
     groups:
       uv-minor-and-patch:
-        patterns: ['*']
-        update-types: ['minor', 'patch']
+        patterns: ["*"]
+        update-types: [minor, patch]
