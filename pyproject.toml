@@ -25,7 +25,7 @@ classifiers = [
 requires-python = "~=3.12.3"
 dependencies = [
     "structlog>=23.2.0,<24.0.0",
-    "python-ulid>=1.1.0,<2.0.0",
+    "python-ulid>=1.1.0,<5.0.0",
 ]
 
 [project.urls]
