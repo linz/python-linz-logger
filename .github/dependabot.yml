@@ -2,6 +2,7 @@ version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
+    open-pull-requests-limit: 5
     schedule:
       interval: weekly
       day: monday
@@ -9,7 +10,6 @@ updates:
       timezone: Pacific/Auckland
     cooldown:
       default-days: 15
-    open-pull-requests-limit: 5
     commit-message:
       prefix: build(deps)
     groups:
@@ -20,6 +20,7 @@ updates:
   # Python packages (pyproject.toml and uv.lock), including the uv_build build requirement.
   - package-ecosystem: uv
     directory: /
+    open-pull-requests-limit: 5
     schedule:
       interval: weekly
       day: monday
@@ -27,7 +28,6 @@ updates:
       timezone: Pacific/Auckland
     cooldown:
       default-days: 15
-    open-pull-requests-limit: 5
     commit-message:
       prefix: build(deps)
     groups:
