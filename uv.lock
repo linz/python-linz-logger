@@ -207,7 +207,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "python-ulid", specifier = ">=1.1.0,<5.0.0" },
-    { name = "structlog", specifier = ">=23.2.0,<24.0.0" },
+    { name = "structlog", specifier = ">=23.2.0,<27.0.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -438,11 +438,11 @@ wheels = [
 
 [[package]]
 name = "structlog"
-version = "23.2.0"
+version = "26.1.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/99/4c/67e8cc235bbeb0a87053739c4c9d0619e3f284730ebdb2b34349488d9e8a/structlog-23.2.0.tar.gz", hash = "sha256:334666b94707f89dbc4c81a22a8ccd34449f0201d5b1ee097a030b577fa8c858", size = 749288, upload-time = "2023-10-09T14:56:18.602Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5e/89/b4a0bcfdf4f71a3dea31379f095929613d7e4528a0996bca6aa964cd0dca/structlog-26.1.0.tar.gz", hash = "sha256:f63a716cbd1b1291cf7661de7794b455acfa4c43c5bcf1630e6ad5ddc1adb3b7", size = 1459881, upload-time = "2026-06-06T07:33:39.348Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fc/26/0f5f842dea4e93e28f7d4ed020021cf41ebd79572a06f12e273c8eac4db9/structlog-23.2.0-py3-none-any.whl", hash = "sha256:16a167e87b9fa7fae9a972d5d12805ef90e04857a93eba479d4be3801a6a1482", size = 62875, upload-time = "2023-10-09T14:56:16.76Z" },
+    { url = "https://files.pythonhosted.org/packages/a9/18/489c97b834dfff9cf2fc2507cede4bcd4b11e67f84bc462acd1992496f86/structlog-26.1.0-py3-none-any.whl", hash = "sha256:e081a26d6c373e6d201eca24eede26d8ffab07f88f477822e679183428d3d91e", size = 73764, upload-time = "2026-06-06T07:33:38.046Z" },
 ]
 
 [[package]]
