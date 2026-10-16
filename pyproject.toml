@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "linz_logger"
-version = "0.12.0"
+version = "0.13.0"
 description = "LINZ standard Logging format"
 authors = [
     { name = "Blayne Chard", email = "bchard@linz.govt.nz" },
