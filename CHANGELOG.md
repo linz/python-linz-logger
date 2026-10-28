@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/linz/python-linz-logger/compare/v0.13.0...v0.13.1) (2026-10-28)
+
+
+### Continuous Integration
+
+* use PyPI trusted publishing TDE-2165 ([#388](https://github.com/linz/python-linz-logger/issues/388)) ([7f88695](https://github.com/linz/python-linz-logger/commit/7f8869573e6db94de485d41f8b02e9066a7282fb))
+
 ## [0.13.0](https://github.com/linz/python-linz-logger/compare/v0.12.0...v0.13.0) (2026-10-16)
 
 
