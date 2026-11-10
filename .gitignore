@@ -5,3 +5,8 @@ __pycache__
 /.pytest_cache/
 Thumbs.db
 /.vscode/
+
+.claude/
+CLAUDE.local.md
+.DS_Store
+.env
